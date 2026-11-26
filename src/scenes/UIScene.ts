@@ -53,7 +53,7 @@ export class UIScene extends Phaser.Scene {
     g.fillStyle(0xe8b070, 1).fillCircle(-4, -6, 24);
     g.fillStyle(0xd09458, 1).fillCircle(0, 0, 24);
     g.lineStyle(3, 0x2a1d2e, 1).strokeCircle(0, 0, 34);
-    const hand = txt(this, 0, -1, 'E', 26, LIGHT, { fontStyle: '600', stroke: '#2a1d2e', strokeThickness: 4 }).setOrigin(0.5);
+    const hand = txt(this, 0, -1, '!', 28, LIGHT, { fontStyle: '600', stroke: '#2a1d2e', strokeThickness: 4 }).setOrigin(0.5);
     this.actionLabel = txt(this, 0, 50, '', 12, LIGHT, { stroke: '#2a1d2e', strokeThickness: 4, align: 'center' }).setOrigin(0.5, 0);
     this.action.add([g, hand, this.actionLabel]);
     const hit = this.add.circle(0, 0, 40, 0xffffff, 0.001).setInteractive({ useHandCursor: true });

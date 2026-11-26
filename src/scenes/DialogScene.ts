@@ -82,9 +82,7 @@ export class DialogScene extends Modal {
     this.heartRow.removeAll(true);
     if (p.hearts !== undefined) {
       for (let i = 0; i < 5; i++) {
-        const h = this.add.image(-i * 10, 0, 'heart');
-        if (4 - i >= p.hearts) h.setTint(0x6a6070);
-        this.heartRow.add(h);
+        this.heartRow.add(this.add.image(-i * 10, 0, 4 - i < p.hearts ? 'heart' : 'heart_off'));
       }
     }
     if (p.icon) this.iconImg.setTexture(p.icon).setVisible(true);

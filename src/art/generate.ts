@@ -131,6 +131,7 @@ export function generateAll(scene: Phaser.Scene) {
   add(scene, 'star_on', O.drawStar(true));
   add(scene, 'star_off', O.drawStar(false));
   add(scene, 'heart', O.drawHeart());
+  add(scene, 'heart_off', O.drawHeart(false));
   add(scene, 'icon_book', O.drawBookIcon());
   add(scene, 'icon_bag', O.drawBagIcon());
   add(scene, 'icon_sun', O.drawSun());

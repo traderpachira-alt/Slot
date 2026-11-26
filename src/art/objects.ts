@@ -778,10 +778,10 @@ export function drawStar(on: boolean): Buf {
   return b;
 }
 
-export function drawHeart(): Buf {
+export function drawHeart(on = true): Buf {
   const rows = ['.OO.OO.', 'OrrOrrO', 'OrRrrrO', 'OrrrrrO', '.OrrrO.', '..OrO..', '...O...'];
   const b = new Buf(7, 7);
-  b.grid(0, 0, rows, { O: PAL.outline, r: 0xe04a5a, R: 0xff9aa8 });
+  b.grid(0, 0, rows, { O: PAL.outline, r: on ? 0xe04a5a : 0xb8a898, R: on ? 0xff9aa8 : 0xd8ccc0 });
   return b;
 }
 

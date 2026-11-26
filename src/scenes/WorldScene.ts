@@ -40,7 +40,7 @@ export class WorldScene extends Phaser.Scene {
   private targets: Target[] = [];
   private current: Target | null = null;
   private overlay!: Phaser.GameObjects.Rectangle;
-  private lights: { img: Phaser.GameObjects.Image; always?: boolean }[] = [];
+  private glows: { img: Phaser.GameObjects.Image; always?: boolean }[] = [];
   private playerLight?: Phaser.GameObjects.Image;
   private fireflies?: Phaser.GameObjects.Particles.ParticleEmitter;
   private villagerSprites = new Map<string, Phaser.GameObjects.Sprite>();
@@ -64,7 +64,7 @@ export class WorldScene extends Phaser.Scene {
     const m = this.map;
     this.busy = false;
     this.targets = [];
-    this.lights = [];
+    this.glows = [];
     this.nodeSprites = [];
     this.customerSprites = [];
     this.villagerSprites.clear();
@@ -159,7 +159,12 @@ export class WorldScene extends Phaser.Scene {
     // kamera
     const cam = this.cameras.main;
     cam.setZoom(2);
-    cam.setBounds(0, 0, m.w, m.h);
+    // Görüş alanından küçük haritalar ekranda ortalanır
+    const viewW = cam.width / 2;
+    const viewH = cam.height / 2;
+    const bx = m.w < viewW ? -(viewW - m.w) / 2 : 0;
+    const by = m.h < viewH ? -(viewH - m.h) / 2 : 0;
+    cam.setBounds(bx, by, Math.max(m.w, viewW), Math.max(m.h, viewH));
     cam.startFollow(this.player, true, 0.18, 0.18, 0, 10);
     cam.setBackgroundColor(m.indoor ? '#1a1018' : '#1b1424');
     cam.roundPixels = true;
@@ -237,7 +242,7 @@ export class WorldScene extends Phaser.Scene {
       .setTint(color)
       .setScale(r / 32)
       .setDepth(20001);
-    this.lights.push({ img, always });
+    this.glows.push({ img, always });
     this.tweens.add({ targets: img, scale: (r / 32) * 1.06, yoyo: true, repeat: -1, duration: 700 + Math.random() * 500 });
   }
 
@@ -331,7 +336,7 @@ export class WorldScene extends Phaser.Scene {
     c = mix(c, 0xffb080, dusk * 0.45);
     c = mix(c, this.map.indoor ? 0x6a4a6a : 0x2a3068, dark);
     this.overlay.setFillStyle(c);
-    for (const l of this.lights) l.img.setAlpha(l.always ? 0.35 + dark * 0.6 : Math.max(0, dark - 0.1) * 1.1);
+    for (const l of this.glows) l.img.setAlpha(l.always ? 0.35 + dark * 0.6 : Math.max(0, dark - 0.1) * 1.1);
     if (this.playerLight) this.playerLight.setAlpha(Math.max(0, dark - 0.2) * 0.9);
     if (this.fireflies) this.fireflies.emitting = GameState.isNight;
   }

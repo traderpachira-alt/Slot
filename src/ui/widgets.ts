@@ -110,6 +110,7 @@ export abstract class Modal extends Phaser.Scene {
 
   protected openBase(title: string | null, h = 520, w = 336) {
     this.closing = false;
+    this.scene.bringToTop();
     GameState.pause();
     const dim = this.add.rectangle(0, 0, W, H, 0x120a18, 0.65).setOrigin(0).setInteractive();
     dim.alpha = 0;

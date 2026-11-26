@@ -13,6 +13,7 @@ import { MerchantScene } from './scenes/MerchantScene';
 import { TravelScene } from './scenes/TravelScene';
 import { ServeScene } from './scenes/ServeScene';
 import { W, H } from './ui/widgets';
+import { GameState } from './state/GameState';
 
 async function start() {
   try {
@@ -20,7 +21,7 @@ async function start() {
   } catch {
     /* yazı tipi yüklenmezse yedek font kullanılır */
   }
-  new Phaser.Game({
+  const game = new Phaser.Game({
     type: Phaser.AUTO,
     parent: 'game',
     width: W,
@@ -45,6 +46,7 @@ async function start() {
       ServeScene,
     ],
   });
+  if (import.meta.env.DEV) Object.assign(window, { __game: game, __gs: GameState });
 }
 
 void start();
